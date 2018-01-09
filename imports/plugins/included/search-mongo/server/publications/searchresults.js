@@ -11,8 +11,13 @@ const supportedCollections = ["products", "orders", "accounts"];
 function getProductFindTerm(searchTerm, searchTags, userId) {
   const shopId = Reaction.getShopId();
   const findTerm = {
-    shopId: shopId,
-    $text: { $search: searchTerm }
+    $and: [
+      { shopId: shopId },
+      { title: {
+        $regex: searchTerm,
+        $options: "i"
+      } }
+    ]
   };
   if (searchTags.length) {
     findTerm.hashtags = { $all: searchTags };
@@ -148,7 +153,7 @@ Meteor.publish("SearchResults", function (collection, searchTerm, facets, maxRes
   check(searchTerm, Match.Optional(String));
   check(facets, Match.OneOf(Array, undefined));
   Logger.debug(`Returning search results on ${collection}. SearchTerm: |${searchTerm}|. Facets: |${facets}|.`);
-  if (!searchTerm) {
+  if (!searchTerm || (collection === "products" && searchTerm.length < 3 )) {
     return this.ready();
   }
   return getResults[collection](searchTerm, facets, maxResults, this.userId);
