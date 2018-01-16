@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+
+.header {
+  display: flex;
+  background-color: whitesmoke;
+}
+
+.banner {
+  height: 460px;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.line {
+  border-top: 2px solid rgba(0, 0, 0, 0.356); 
+  width: 200px; 
+  margin: 45px;
+}
+
+.title-main {
+  font-family: 'Tangerine', 'cursive'; 
+  font-size: 56px;
+}
+
+.title-section {
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
+.no-gutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+.no-gutter {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.list-group-item {
+  padding: 15px;
+}
+
+.no-gutter-a > [class*='col-'] {
+  padding: 0px 5px;
+}
+
+.padded {
+  padding: 20px 40px 60px 40px;
+  background-color:rgba(255, 233, 205, 0.267);
+  box-shadow: 0px 10px 10px #bebebe;
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  border: none;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
+  transition-delay: 1s;
+  transition: transform 1s;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 0px 20px 15px 20px;
+  background-color: rgba(245, 245, 245, 0.8);
+}
+
+.btn.add-cart {
+  background-color: #FF8800;
+  z-index: 20;
+}
+
+.item:hover .thumbnail {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.carousel-control{
+  top: 50%;
+  font-size: 30px;
+}
+
+.black-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.2);
+  opacity: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.item-height {
+  height: 350px;
+  margin: 5px 0px;
+  overflow:hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.item:hover .black-overlay, .item:hover .middle {
+  opacity: 1;
+}
+
+.color-blue {
+  color: #256188;
+}
+
+.color-white {
+  color: white !important;
+}
+
+.bordered {
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+}
+
+footer {
+  background-color:#256188;
+  color: white;
+}
+
+.footer-item {
+  padding: 30px;
+}
+
+.a, .a:hover, .a:active, .a:visited {
+  color: white !important;
+}
