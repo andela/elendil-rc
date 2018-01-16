@@ -1,0 +1,72 @@
+//Reviews
+.review-container {
+  margin-top: 20
+}
+
+.review-edit-input, .editReview-edit-input {
+  height: 80px !important;
+}
+
+.review-edit-input:focus, .editReview-edit-input:focus  {
+  outline-color: orange
+}
+
+.review-item-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  .user-avatar {
+    display: inline-block
+  }
+  .review-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 10px;
+    .review-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .review-time {
+        align-self: flex-end
+      }
+    }
+    .review-text {
+      display: flex;
+      flex-direction: row;
+      width: 100%
+    }
+    .review-btn {
+      align-self: flex-end;
+      .review-btn-edit, .review-btn-delete {
+        cursor: pointer
+      }
+      .review-btn-edit {
+        padding: 10px;
+      }
+    }
+  }
+}
+
+.review-edit-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  .user-avatar {
+    display: inline-block;
+  }
+  .review-edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 10px;
+    .review-edit-btn {
+      display: flex;
+      flex-direction: row;
+      align-self: flex-end;
+      .cancel-btn {
+        margin-right: 15px
+      }
+    }
+  }
+}
