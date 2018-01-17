@@ -6,6 +6,7 @@ import Init from "./init";
 import Prerender from "./prerender";
 import { initTemplates } from "/server/api/core/templates";
 import Environment from "./environment";
+import restApi from "./restApiEndpoints";
 
 
 export default function () {
@@ -17,4 +18,5 @@ export default function () {
   Init();
   Prerender();
   Environment();
+  restApi();
 }
