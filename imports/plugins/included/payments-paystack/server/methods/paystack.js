@@ -90,7 +90,8 @@ Meteor.methods({
     } = packageData.settings["paystack-paymentmethod"];
     return {
       publicKey,
-      secretKey
+      secretKey,
+      id: packageData._id
     };
   },
 
