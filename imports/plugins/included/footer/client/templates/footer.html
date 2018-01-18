@@ -63,16 +63,15 @@
     </center>
     <center>
       <div class="col-xs-12 col-sm-4 bordered footer-item">
-        <h5 class="title">And more...</h5>
-        <h4>
-          <a href="#" class="a">Help</a>
-        </h4>
-        <h4>
-          <a href="#" class="a">Return policy</a>
-        </h4>
-        <h4>
-          <a href="#" class="a">Terms & Conditions</a>
-        </h4>
+        <h5 class="title color-white"> Other Pages</h5>
+        {{#if staticPage.count}}
+          {{#each page in  staticPage}}
+          <h4> 
+            <a style="color: #fff;" href="/page/{{page.pageAddress}}">{{page.pageName}}</a>
+          </h4>
+          {{/each}}
+          <h4><a style="color: #fff;" href="/allPages"> All Pages</a></h4>
+        {{/if}}
         <br/>
       </div>
     </center>
