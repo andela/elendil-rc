@@ -55,7 +55,6 @@ Meteor.methods({
         }
       };
     }
-
     Cart.update(selector, update, function (error, result) {
       if (error) {
         Logger.debug(error, "An error occurred saving the order");

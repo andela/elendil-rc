@@ -95,3 +95,5 @@ johanbrook:publication-collector
 
 # Custom Packages
 teamon:tinymce
+nimble:restivus
+momentjs:moment

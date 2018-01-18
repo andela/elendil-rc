@@ -53,11 +53,11 @@ class ProductGridItems extends Component {
   renderMedia() {
     if (this.props.media() === false) {
       return (
-        <span className="product-image" style={{ backgroundImage: "url('/resources/placeholder.gif')" }} />
+        <span className="product-image thumbnail" style={{ backgroundImage: "url('/resources/placeholder.gif')" }} />
       );
     }
     return (
-      <span className="product-image" style={{ backgroundImage: `url('${this.props.media().url({ store: "large" })}')` }}/>
+      <span className="product-image thumbnail" style={{ backgroundImage: `url('${this.props.media().url({ store: "large" })}')` }} />
     );
   }
 
@@ -86,9 +86,13 @@ class ProductGridItems extends Component {
     );
   }
 
+  renderOverlayClass() {
+    return this.props.isSearch ? "" : "caption";
+  }
+
   renderGridContent() {
     return (
-      <div className="grid-content">
+      <div className="grid-conten">
         <a
           href={this.props.pdpPath()}
           data-event-category="grid"
@@ -98,20 +102,21 @@ class ProductGridItems extends Component {
           onDoubleClick={this.handleDoubleClick}
           onClick={this.handleClick}
         >
-          <div className="overlay">
-            <div className="overlay-title">{this.props.product.title}</div>
-            <div className="currency-symbol">{formatPriceString(this.props.displayPrice())}</div>
-            {this.props.isSearch &&
-                <div className="overlay-description">{this.props.product.description}</div>
-            }
+          <div className={`${this.renderOverlayClass()}`}>
+            <center><h4 className="color-blue">{this.props.product.title}</h4>
+              <h4 className="color-blue">{formatPriceString(this.props.displayPrice())}</h4>
+            </center>
           </div>
+          {this.props.isSearch &&
+            <div className="overlay-description">{this.props.product.description}</div>
+          }
         </a>
       </div>
     );
   }
 
   renderHoverClassName() {
-    return this.props.isSearch ? "item-content" : "";
+    return this.props.isSearch ? "item-content" : "item";
   }
 
   render() {
@@ -122,8 +127,20 @@ class ProductGridItems extends Component {
         id={this.props.product._id}
       >
         <div className={this.renderHoverClassName()}>
+          <div className="black-overlay" />
           <span className="product-grid-item-alerts" />
 
+          <div className="middle">
+            <button type="button" className="btn add-cart"
+              href={this.props.pdpPath()}
+              data-event-category="grid"
+              data-event-label="grid product click"
+              data-event-value={this.props.product._id}
+              onDoubleClick={this.handleDoubleClick}
+              onClick={this.handleClick}
+            >
+              <i className="fa fa-shopping-cart" /> Add To Cart</button>
+          </div>
           <a className="product-grid-item-images"
             href={this.props.pdpPath()}
             data-event-category="grid"
