@@ -49,7 +49,7 @@ export default function blocks() {
 
     // Media block
     // Contains
-    // - Medai Gallery
+    // - Media Gallery
     // - Tags
     // - Details
     {
@@ -191,6 +191,26 @@ export default function blocks() {
           }
         }
 
+      ]
+    },
+
+    // Reviews
+    {
+      type: "block",
+      columns: 6,
+      size: "half",
+      permissions: ["admin"],
+      audience: ["guest", "anonymous"],
+      style: {
+        "@media  only screen and (max-width: 921px)": {
+          minWidth: "100%",
+          maxWidth: "100%"
+        }
+      },
+      children: [
+        {
+          component: "ProductReview"
+        }
       ]
     }
   ];
