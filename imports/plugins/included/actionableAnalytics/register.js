@@ -11,7 +11,7 @@ Reaction.registerPackage({
   registry: [
     {
       route: "/dashboard/analytics",
-      provides: "dashboard",
+      provides: ["dashboard"],
       name: "Report",
       label: "Report",
       description: "View report",

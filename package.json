@@ -108,6 +108,7 @@
     "react-taco-table": "^0.5.1",
     "react-tether": "^0.5.7",
     "react-textarea-autosize": "^5.0.7",
+    "react-transition-group": "^2.2.1",
     "recompose": "^0.24.0",
     "request": "^2.83.0",
     "shallowequal": "^1.0.2",
