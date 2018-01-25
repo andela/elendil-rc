@@ -57,6 +57,8 @@ Subscriptions.ProductReviews = Subscriptions.Manager.subscribe("ProductReviews")
 
 Subscriptions.ProductReviews = Subscriptions.Manager.subscribe("ShopReviews");
 
+Subscriptions.WalletHistories = Subscriptions.Manager.subscribe("WalletHistories");
+
 /**
  * Subscriptions that need to reload on new sessions
  */
