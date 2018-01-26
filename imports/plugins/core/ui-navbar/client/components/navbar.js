@@ -89,6 +89,7 @@ class NavBar extends Component {
       return (
         <div className="search">
           <Components.FlatButton
+            style={{ color: "white" }}
             icon="fa fa-search"
             kind="flat"
             onClick={this.handleOpenSearchModal}

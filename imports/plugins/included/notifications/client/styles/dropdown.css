@@ -254,7 +254,7 @@ small.dropmenu-item-content {
   padding-bottom: 0;
 }
 .table > thead > tr > th.col-actions .dropdown-toggle {
-  color: #777777;
+  color: #fff;
 }
 .notifications {
   list-style: none;

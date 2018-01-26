@@ -2,8 +2,11 @@
 .rui.navbar {
   .display(flex);
   .align-items(center);
+  flex-wrap: wrap;
+  justify-content: flex-end;
   background-color: @navbar-default-bg;
-  color: @navbar-default-link-color;
+  // color: @navbar-default-link-color;
+  // color: @white;
   border-radius: 0;
   border: 0;
 }
@@ -12,7 +15,7 @@
 .rui.navbar a:hover,
 .rui.navbar a:focus,
 .rui.navbar .dropdown-toggle {
-  color: @navbar-default-link-color;
+  color: @white;
   cursor: pointer;
   text-decoration: none;
 }
