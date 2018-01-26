@@ -3,8 +3,9 @@ import { Reaction } from "/client/api";
 import { Meteor } from "meteor/meteor";
 import PropTypes from "prop-types";
 import Review from "./review";
+import ShopRating from "./shopRating";
 import UpdateReview from "./updateReview";
-import { ShopReviews } from "/lib/collections";
+import { ShopReviews, ShopRatings } from "/lib/collections";
 import { Components, registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
 class ShopReview extends Component {
@@ -131,10 +132,14 @@ class ShopReview extends Component {
 
   renderReviews(index) {
     const review = this.props.shopReviews[index];
+    const { query: { shopId } } = this.props;
+    let userRating = ShopRatings.find({ userId: review.userId, shopId }).fetch();
+    userRating = userRating.length ? userRating[0].rating : 0;
     return (
       <Review
         key={review._id}
         id={review._id}
+        rating={userRating}
         index={index}
         content={review}
         delete={this.handleDelete}
@@ -168,6 +173,7 @@ class ShopReview extends Component {
           style={{ display: "flex", flexDirection: "column", marginTop: "20px" }}
         >
           <div className="col-lg-6 col-sm-10 col-md-8 col-xs-10 sub-content" style={{ margin: "auto" }}>
+            <ShopRating />
             {displayReviewform ?
               <h3 onClick={this.handleClick}>Drop a review</h3> :
               <div>
