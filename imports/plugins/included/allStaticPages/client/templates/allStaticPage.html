@@ -1,0 +1,42 @@
+<template name="allStaticPages" >
+    <main class="main">
+        <div class="allStaticPages panel panel-info container">
+            <div class="panel-body">
+              {{#if userStaticPage.count}}
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Page Name</th>
+                      <th>Page Address</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each page in userStaticPage}}
+                    {{#if page.isEnabled}}
+                    <tr id={{page._id}}>
+                      <td>{{page.pageName}}</td>
+                      <td>{{page.pageAddress}}</td>
+                      <td>
+                        <div class='btn-group'>
+                          <a href="/page/{{page.pageAddress}}" type="button" class="btn btn-default">View
+                            <i class="fa fa-eye"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    {{/if}}
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+              {{else}}
+              <div class='alert alert-info text-center'>
+                <h4>Oops! No pages have been added.</h4>
+              </div>
+              {{/if}}
+            </div>
+          </div>
+    </main>
+  </template>

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import startIntro from "../../../../included/tour/tour";
 import { Components } from "@reactioncommerce/reaction-components";
 import { Meteor } from "meteor/meteor";
+
 
 // TODO: Delete this, and do it the react way - Mike M.
 async function openSearchModalLegacy(props) {
@@ -27,8 +29,18 @@ class NavBar extends Component {
     shop: PropTypes.object
   }
 
+  constructor(props) {
+    super(props);
+    this.startIntroBtn = this.startIntroBtn.bind(this);
+  }
+
   state = {
     navBarVisible: false
+  }
+
+  startIntroBtn(event) {
+    event.preventDefault();
+    startIntro.startManualTour();
   }
 
   toggleNavbarVisibility = () => {
@@ -107,6 +119,7 @@ class NavBar extends Component {
     );
   }
 
+
   renderMainDropdown() {
     return (
       <Components.MainDropdown />
@@ -132,6 +145,14 @@ class NavBar extends Component {
     );
   }
 
+  renderTourButton() {
+    return (
+      <div className="tourBtn">
+        <a href="#" onClick={this.startIntroBtn}>Take a Tour</a>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="rui navbar">
@@ -144,6 +165,7 @@ class NavBar extends Component {
         {this.renderCurrency()}
         {this.renderMainDropdown()}
         {this.renderCartContainerAndPanel()}
+        {this.renderTourButton()}
       </div>
     );
   }
