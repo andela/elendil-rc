@@ -21,22 +21,47 @@ const CompletedShopOrders = ({ shopName, items, handleDisplayMedia, shippingMeth
     </span>
   ) : `${shippingMethod.carrier} - ${shippingMethod.label}`;
   return (
-    <div className="order-details-shop-breakdown">
-      {/* This is the left side / main content */}
-      <div className="order-details-info-box">
-        <div className="store-detail-box">
-          <span className="order-details-store-title">{shopName}</span>
-          <span className="order-details-shipping-name">{shippingName}</span>
+    <div>
+      <div className="order-details-shop-breakdown">
+        {/* This is the left side / main content */}
+        <div className="order-details-info-box">
+          <div className="store-detail-box">
+            <span className="order-details-store-title">{shopName} Non-Digital Items</span>
+            <span className="order-details-shipping-name">{shippingName}</span>
+          </div>
         </div>
-      </div>
-      <div className="order-details-info-box-topless">
-        {items.map(function (item) {
-          return <CompletedOrderItem item={item} key={item._id} handleDisplayMedia={handleDisplayMedia} />;
-        })}
+        <div className="order-details-info-box-topless">
+          {items.map(function (item) {
+            if (item.productType === "nonDigital") {
+              return <CompletedOrderItem item={item} key={item._id} handleDisplayMedia={handleDisplayMedia} />;
+            }
+          })}
+        </div>
+
+        {/* This is the left side / main content */}
       </div>
 
-      {/* This is the left side / main content */}
+      <div className="order-details-shop-breakdown">
+        {/* This is the left side / main content */}
+        <div className="order-details-info-box">
+          <div className="store-detail-box">
+            <span className="order-details-store-title">{shopName} Digital items</span>
+            <span className="order-details-shipping-name">Download Link</span>
+          </div>
+        </div>
+        <div className="order-details-info-box-topless">
+          {items.map(function (item) {
+            if (item.productType === "digital") {
+              return <CompletedOrderItem item={item} key={item._id} handleDisplayMedia={handleDisplayMedia} />;
+            }
+          })}
+        </div>
+
+        {/* This is the left side / main content */}
+      </div>
     </div>
+
+
   );
 };
 
