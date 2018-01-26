@@ -1,79 +1,51 @@
 <template name="footer">
   <!-- About Us/Footer -->
-  <footer class="row color-white">
-    <center>
-      <div class="col-xs-12 col-sm-4 bordered footer-item">
-        <h5 class="title color-white">The Team</h5>
-        <div class="row">
-          <div class="col-xs-6 col-sm-2">
-            <img src="resources/images/hamdala.jpg" height="48px" width="48px" alt="" class="img-circle">
-            <h5>Hamdala</h5>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <img src="resources/images/kayode.jpg" height="48px" width="48px" alt="" class="img-circle">
-            <h5>Kayode</h5>
-          </div>
-          <div class="col-xs-6 col-sm-2">
-            <img src="resources/images/sammi.jpg" height="48px" width="48px" alt="" class="img-circle">
-            <h5>Samuel</h5>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <img src="resources/images/chibz.jpg" height="48px" width="48px" alt="" class="img-circle">
-            <h5>Chibueze</h5>
-          </div>
-          <div class="col-xs-6 col-sm-2">
-            <img src="resources/images/lanre.jpg" height="48px" width="48px" alt="" class="img-circle">
-            <h5>Lanre</h5>
-          </div>
+  <footer class="footer-bottom text-center" style="padding-bottom: 30px;">
+    <div class="container">
+      <h1 class="title-footer">
+        Reaction Commerce
+      </h1>
+      <h6>
+        <a style="color: #fff;" href="#">About us</a>
+      </h6>
+      <h6>
+        <a style="color: #fff;" href="#">Terms and Conditions</a>
+      </h6>
+      {{#if staticPage.count}} {{#each page in staticPage}}
+      <h6>
+        <a style="color: #fff;" href="/page/{{page.pageAddress}}">{{page.pageName}}</a>
+      </h6>
+      {{/each}}
+      <h6>
+        <a style="color: #fff;" href="/allPages"> All Pages</a>
+      </h6>
+      <br/> {{/if}}
+      <div style="display: flex; justify-content: center; padding-bottom: 10px;">
+        <div>
+          <a href="">
+            <img src="resources/images/fb.jpg" height="28px" width="28px" alt="" class="img-circle">
+          </a>
         </div>
-        <center>@Elendil Team 2018</center>
-      </div>
-    </center>
-    <center>
-      <div class="col-xs-12 col-sm-4 footer-item">
-        <h5 class="title color-white">Contact us</h5>
-        <br/>
-        <div class="row">
-          <div class="col-xs-3">
-            <a href="">
-              <img src="resources/images/fb.jpg" height="32px" width="32px" alt="" class="img-circle">
-            </a>
-          </div>
-          <div class="col-xs-3">
-            <a href="">
-              <img src="resources/images/twitter.jpg" height="32px" width="32px" alt="" class="img-circle">
-            </a>
-          </div>
-          <div class="col-xs-3">
-            <a href="#">
-              <img src="resources/images/gplus.jpg" height="32px" width="32px" alt="" class="img-circle">
-            </a>
-          </div>
-          <div class="col-xs-3">
-            <a href="#">
-              <img src="resources/images/mail.png" height="32px" width="32px" alt="" class="img-circle">
-            </a>
-          </div>
+        <div>
+          <a href="">
+            <img src="resources/images/twitter.jpg" height="28px" width="28px" alt="" class="img-circle">
+          </a>
         </div>
-        <br/>
-        <center>
-          <h5>Reaction Commerce</h5>
-        </center>
+        <div>
+          <a href="#">
+            <img src="resources/images/gplus.jpg" height="28px" width="28px" alt="" class="img-circle">
+          </a>
+        </div>
+        <div>
+          <a href="#">
+            <img src="resources/images/mail.png" height="30px" width="28px" alt="" class="img-circle">
+          </a>
+        </div>
       </div>
-    </center>
-    <center>
-      <div class="col-xs-12 col-sm-4 bordered footer-item">
-        <h5 class="title color-white"> Other Pages</h5>
-        {{#if staticPage.count}}
-          {{#each page in  staticPage}}
-          <h4> 
-            <a style="color: #fff;" href="/page/{{page.pageAddress}}">{{page.pageName}}</a>
-          </h4>
-          {{/each}}
-          <h4><a style="color: #fff;" href="/allPages"> All Pages</a></h4>
-        {{/if}}
-        <br/>
+      <div class="copyrights">
+        <p> © 2016 | Designed by #Elendil Team </p>
       </div>
-    </center>
+      <div class="clearfix"></div>
+    </div>
   </footer>
 </template>

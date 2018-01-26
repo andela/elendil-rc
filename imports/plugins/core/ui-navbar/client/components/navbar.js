@@ -161,12 +161,12 @@ class NavBar extends Component {
         {this.renderBrand()}
         {this.renderTagNav()}
         {this.renderSearchButton()}
+        {this.renderTourButton()}
         {this.renderNotificationIcon()}
         {this.renderLanguage()}
         {this.renderCurrency()}
         {this.renderMainDropdown()}
         {this.renderCartContainerAndPanel()}
-        {this.renderTourButton()}
       </div>
     );
   }

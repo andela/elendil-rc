@@ -46,4 +46,4 @@ imports/plugins/custom/*
 
 .reaction/config.json
 
-*.js.icloud
+*.icloud
