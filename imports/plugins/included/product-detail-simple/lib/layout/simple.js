@@ -189,6 +189,11 @@ export default function blocks() {
               paddingTop: 20
             }
           }
+        },
+
+        // Product Rating
+        {
+          component: "ProductRating"
         }
 
       ]
@@ -210,6 +215,31 @@ export default function blocks() {
       children: [
         {
           component: "ProductReview"
+        }
+      ]
+    },
+
+    {
+      type: "block",
+      columns: 6,
+      size: "half",
+      permissions: ["admin"],
+      audience: ["guest", "anonymous"],
+      style: {
+        "@media  only screen and (max-width: 921px)": {
+          minWidth: "100%",
+          maxWidth: "100%"
+        },
+        "alignItems": "center"
+      },
+      children: [
+        {
+          component: "SocialContent",
+          props: {
+            style: {
+              alignItems: "center"
+            }
+          }
         }
       ]
     }

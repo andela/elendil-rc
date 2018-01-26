@@ -9,3 +9,5 @@ export { default as ProductField } from "./productField";
 export { default as PriceRange } from "./priceRange";
 export { default as ProductNotFound } from "./productNotFound";
 export { default as ProductReview } from "./productReview";
+export { default as ProductRating } from "./productRating";
+export { default as SocialContent } from "./socialContent";

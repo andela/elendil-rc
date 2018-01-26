@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { moment } from "meteor/momentjs:moment";
+import ReactStars from "react-stars";
 import { Components } from "@reactioncommerce/reaction-components";
 
 const Review = (props) => {
@@ -25,8 +26,8 @@ const Review = (props) => {
         <div className="review-text">
           <p>{review}</p>
         </div>
-        {props.currentUserId === userId &&
         <div className="review-btn">
+          {props.currentUserId === userId &&
           <span className="review-btn-edit">
             <i
               id={props.id}
@@ -35,7 +36,8 @@ const Review = (props) => {
               onClick={props.update}
               className="fa fa-pencil"
             />
-          </span>
+          </span>}
+          {props.currentUserId === userId &&
           <span>
             <i
               style={{ cursor: "pointer" }}
@@ -43,8 +45,18 @@ const Review = (props) => {
               onClick={props.delete}
               className="fa fa-trash"
             />
+          </span>}
+          <span>
+            <ReactStars
+              className="review-rating-stars"
+              count={5}
+              edit={false}
+              size={16}
+              value={props.rating}
+              color2={"#ffd700"}
+            />
           </span>
-        </div>}
+        </div>
       </div>
     </div>
   );
@@ -56,6 +68,7 @@ Review.propTypes = {
   delete: PropTypes.func,
   id: PropTypes.string,
   index: PropTypes.number,
+  rating: PropTypes.number,
   update: PropTypes.func
 };
 
