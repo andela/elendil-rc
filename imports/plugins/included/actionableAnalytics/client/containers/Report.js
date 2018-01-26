@@ -84,6 +84,7 @@ export class Report extends React.Component {
         if (errors) {
           return errors;
         }
+        console.log('Fetched orders>>>>', ordersFetched);
         if (ordersFetched) {
           const analyticsItems = analyseOrder(ordersFetched, fromDate, toDate);
           this.setState({

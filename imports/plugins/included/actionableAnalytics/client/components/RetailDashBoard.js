@@ -6,6 +6,7 @@ import { Box } from '../components/box/Box';
 
 
 export const RetailDashBoard = (props) => {
+  console.log('Retails report', props)
   const { OrdersData } = props;
   const {
     totalSales,
@@ -13,7 +14,7 @@ export const RetailDashBoard = (props) => {
     ordersCancelled,
     ordersPlaced,
     totalItemsPurchased,
-    grossProfit,
+    grossProfit
   } = OrdersData;
   return (
     <div
@@ -39,7 +40,7 @@ export const RetailDashBoard = (props) => {
       {/* gross profit box */}
       <Box
         boxTitle="GROSS PROFIT"
-        boxValue={formatPriceString(grossProfit)}
+        boxValue={formatPriceString(grossProfit || 0)}
       />
       {/* placed orders board */}
       <Box
