@@ -71,7 +71,7 @@ function getSessionCarts(userId, sessionId, shopId) {
     }]
   });
 
-  // we can't use Array.map here, because we need to reduce the number of array
+  // we can"t use Array.map here, because we need to reduce the number of array
   // elements if element belongs to registered user, we should throw it.
   const allowedCarts = [];
 
@@ -129,7 +129,7 @@ Meteor.methods({
     // TODO: Review this. currentSessionId sometimes come in as false. e.g from Accounts.onLogin
     check(currentSessionId, Match.Optional(String));
 
-    // we don't process current cart, but merge into it.
+    // we don"t process current cart, but merge into it.
     const currentCart = Collections.Cart.findOne(cartId);
     if (!currentCart) {
       throw new Meteor.Error("access-denied", "Access Denied");
@@ -144,7 +144,7 @@ Meteor.methods({
     }
     // persistent sessions, see: publications/sessions.js
     // this is the last place where we still need `Reaction.sessionId`.
-    // The use case is: on user log in. I don't know how pass `sessionId` down
+    // The use case is: on user log in. I don"t know how pass `sessionId` down
     // at that moment.
     const sessionId = currentSessionId || Reaction.sessionId;
     const shopId = Reaction.getShopId();
@@ -169,20 +169,20 @@ Meteor.methods({
         `merge cart: merge user userId: ${userId}, sessionCart.userId: ${
           sessionCart.userId}, sessionCart id: ${sessionCart._id}`
       );
-      // really if we have no items, there's nothing to merge
+      // really if we have no items, there"s nothing to merge
       if (sessionCart.items) {
-        // if currentCart already have a cartWorkflow, we don't need to clean it
+        // if currentCart already have a cartWorkflow, we don"t need to clean it
         // up completely, just to `coreCheckoutShipping` stage. Also, we will
         // need to recalculate shipping rates
         if (typeof currentCart.workflow === "object" &&
-        typeof currentCart.workflow.workflow === "object") {
+          typeof currentCart.workflow.workflow === "object") {
           if (currentCart.workflow.workflow.length > 2) {
             Meteor.call("workflow/revertCartWorkflow", "coreCheckoutShipping");
             // refresh shipping quotes
             Meteor.call("shipping/updateShipmentQuotes", cartId);
           }
         } else {
-          // if user logged in he doesn't need to show `checkoutLogin` step
+          // if user logged in he doesn"t need to show `checkoutLogin` step
           Meteor.call("workflow/revertCartWorkflow", "checkoutAddressBook");
         }
 
@@ -208,7 +208,7 @@ Meteor.methods({
       // cleanup session Carts after merge.
       if (sessionCart.userId !== this.userId) {
         // clear the cart that was used for a session
-        // and we're also going to do some garbage Collection
+        // and we"re also going to do some garbage Collection
         Collections.Cart.remove(sessionCart._id);
         // cleanup user/accounts
         Collections.Accounts.remove({
@@ -246,7 +246,7 @@ Meteor.methods({
   /**
    * @method cart/createCart
    * @summary create new cart for user,
-   * but all checks for current cart's existence should go before this method will be called, to keep it clean
+   * but all checks for current cart"s existence should go before this method will be called, to keep it clean
    * @memberof Methods/Cart
    * @param {String} userId - userId to create cart for
    * @param {String} sessionId - current client session id
@@ -281,7 +281,7 @@ Meteor.methods({
       sessionId: sessionId,
       userId: userId
     });
-    Logger.debug("create cart: into new user cart. created: " +  currentCartId +
+    Logger.debug("create cart: into new user cart. created: " + currentCartId +
       " for user " + userId);
 
     // merge session carts into the current cart
@@ -347,7 +347,7 @@ Meteor.methods({
 
     const cart = Collections.Cart.findOne({ userId: this.userId });
     if (!cart) {
-      Logger.error(`Cart not found for user: ${ this.userId }`);
+      Logger.error(`Cart not found for user: ${this.userId}`);
       throw new Meteor.Error(404, "Cart not found",
         "Cart not found for user with such id");
     }
@@ -357,10 +357,14 @@ Meteor.methods({
     // `quantityProcessing`?
     let product;
     let variant;
-    Collections.Products.find({ _id: { $in: [
-      productId,
-      variantId
-    ] } }).forEach(doc => {
+    Collections.Products.find({
+      _id: {
+        $in: [
+          productId,
+          variantId
+        ]
+      }
+    }).forEach(doc => {
       if (doc.type === "simple") {
         product = doc;
       } else {
@@ -373,12 +377,12 @@ Meteor.methods({
     // const product = Collections.Products.findOne(productId);
     // const variant = Collections.Products.findOne(variantId);
     if (!product) {
-      Logger.warn(`Product: ${ productId } was not found in database`);
+      Logger.warn(`Product: ${productId} was not found in database`);
       throw new Meteor.Error(404, "Product not found",
         "Product with such id was not found!");
     }
     if (!variant) {
-      Logger.warn(`Product variant: ${ variantId } was not found in database`);
+      Logger.warn(`Product variant: ${variantId} was not found in database`);
       throw new Meteor.Error(404, "ProductVariant not found",
         "ProductVariant with such id was not found!");
     }
@@ -440,11 +444,11 @@ Meteor.methods({
         parcel = { weight: immediateAncestor.weight, height: immediateAncestor.height, width: immediateAncestor.width, length: immediateAncestor.length };
       }
     }
-    // if it's set at the option level then that overrides
+    // if it"s set at the option level then that overrides
     if (variant.weight || variant.height || variant.width || variant.length) {
       parcel = { weight: variant.weight, height: variant.height, width: variant.width, length: variant.length };
     }
-    // cart variant doesn't exist
+    // cart variant doesn"t exist
     return Collections.Cart.update({
       _id: cart._id
     }, {
@@ -459,6 +463,8 @@ Meteor.methods({
           metafields: options.metafields,
           title: product.title,
           type: product.type,
+          productType: product.productType,
+          productFileUrl: product.productFileUrl,
           parcel
         }
       }
@@ -537,7 +543,7 @@ Meteor.methods({
         return result;
       });
       // TODO: HACK: When calling update shipping the changes to the cart have not taken place yet
-      // TODO: But calling this findOne seems to force this record to update. Extra weird since we aren't
+      // TODO: But calling this findOne seems to force this record to update. Extra weird since we aren"t
       // TODO: passing the Cart but just the cartId and regrabbing it so you would think that would work but it does not
       Collections.Cart.findOne(cart._id);
       // refresh shipping quotes
@@ -592,9 +598,10 @@ Meteor.methods({
     const cart = Collections.Cart.findOne({
       _id: cartId,
       userId: Meteor.userId()
+
     });
     if (!cart) {
-      Logger.error(`Cart not found for user: ${ this.userId }`);
+      Logger.error(`Cart not found for user: ${this.userId}`);
       throw new Meteor.Error(404, "Cart not found",
         "Cart not found for user with such id");
     }
@@ -661,7 +668,7 @@ Meteor.methods({
       _id: cartId
     });
     if (!cart) {
-      Logger.error(`Cart not found for user: ${ this.userId }`);
+      Logger.error(`Cart not found for user: ${this.userId}`);
       throw new Meteor.Error("Cart not found for user with such id");
     }
 
@@ -748,7 +755,7 @@ Meteor.methods({
       userId: this.userId
     });
     if (!cart) {
-      Logger.error(`Cart not found for user: ${ this.userId }`);
+      Logger.error(`Cart not found for user: ${this.userId}`);
       throw new Meteor.Error(404, "Cart not found",
         "Cart not found for user with such id");
     }
@@ -786,7 +793,7 @@ Meteor.methods({
     } else {
       // if no items in cart just add or modify one record for the carts shop
       if (!cart.items) {
-        // add a shipping record if it doesn't exist
+        // add a shipping record if it doesn"t exist
         if (!cart.shipping) {
           selector = {
             _id: cartId
@@ -821,8 +828,8 @@ Meteor.methods({
           };
         }
       } else {
-        // if we have items in the cart but we didn't have existing shipping records
-        // add a record for each shop that's represented in the items
+        // if we have items in the cart but we didn"t have existing shipping records
+        // add a record for each shop that"s represented in the items
         const shopIds = Object.keys(cart.getItemsByShop());
         shopIds.map((shopId) => {
           selector = {
@@ -840,7 +847,7 @@ Meteor.methods({
       }
     }
     if (!updated) {
-      // if we didn't do one of the inline updates, then run the update here
+      // if we didn"t do one of the inline updates, then run the update here
       try {
         Collections.Cart.update(selector, update);
       } catch (error) {
@@ -856,7 +863,7 @@ Meteor.methods({
         "Cart workflow object not detected.");
     }
 
-    // ~~it's ok for this to be called multiple times~~
+    // ~~it"s ok for this to be called multiple times~~
     // call it only once when we at the `checkoutAddressBook` step
     if (typeof cart.workflow.workflow === "object" &&
       cart.workflow.workflow.length < 2) {
@@ -894,7 +901,7 @@ Meteor.methods({
     });
 
     if (!cart) {
-      Logger.error(`Cart not found for user: ${ this.userId }`);
+      Logger.error(`Cart not found for user: ${this.userId}`);
       throw new Meteor.Error(404, "Cart not found",
         "Cart not found for user with such id");
     }
@@ -939,7 +946,7 @@ Meteor.methods({
    * @since 0.10.1
    * @todo Check if no more address in cart as shipping, we should reset `cartWorkflow` to second step
    * @return {Number|Object|Boolean} The number of removed documents or
-   * error object or `false` if we don't need to update cart
+   * error object or `false` if we don"t need to update cart
    */
   "cart/unsetAddresses": function (addressId, userId, type) {
     check(addressId, String);
@@ -1028,8 +1035,8 @@ Meteor.methods({
     const cartTotal = cart.getTotal();
     const cartTotalByShop = cart.getTotalByShop();
 
-    // we won't actually close the order at this stage.
-    // we'll just update the workflow and billing data where
+    // we won"t actually close the order at this stage.
+    // we"ll just update the workflow and billing data where
     // method-hooks can process the workflow update.
 
     const payments = [];
@@ -1103,9 +1110,9 @@ Meteor.methods({
   /**
    * @method cart/setAnonymousUserEmail
    * @memberof Methods/Cart
-   * @summary Assigns email to anonymous user's cart instance
-   * @param {Object} userId - current user's Id
-   * @param {String} email - email to set for anonymous user's cart instance
+   * @summary Assigns email to anonymous user"s cart instance
+   * @param {Object} userId - current user"s Id
+   * @param {String} email - email to set for anonymous user"s cart instance
    * @return {Number} returns update result
    */
   "cart/setAnonymousUserEmail": function (userId, email) {
