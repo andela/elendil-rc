@@ -28,7 +28,7 @@ class CartItems extends Component {
       handleRemoveItem,
       item
     } = this.props;
-
+    console.log(this.props, 'props');
     return (
       <div
         className="cart-items"
