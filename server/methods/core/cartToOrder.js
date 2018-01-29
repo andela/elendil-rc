@@ -13,7 +13,7 @@ import { Logger, Reaction } from "/server/api";
  * @summary Transform Cart to Order when a payment is processed.
  * We want to copy the cart over to an order object, and give the user a new empty
  * cart. Reusing the cart schema makes sense, but integrity of the order,
- * we don't want to just make another cart item
+ * we don"t want to just make another cart item
  * @todo  Partial order processing, shopId processing
  * @todo  Review Security on this method
  * @param {String} cartId - cartId to transform to order
@@ -30,11 +30,10 @@ export function copyCartToOrder(cartId) {
 
   // Init new order object from existing cart
   const order = Object.assign({}, cart);
-
   // get sessionId from cart while cart is fresh
   const sessionId = cart.sessionId;
 
-  // If there are no order items, throw an error. We won't create an empty order
+  // If there are no order items, throw an error. We won"t create an empty order
   if (!order.items || order.items.length === 0) {
     const msg = "An error occurred saving the order. Missing cart items.";
     Logger.error(msg);
@@ -44,11 +43,11 @@ export function copyCartToOrder(cartId) {
   // Debug only message to identify the current cartId
   Logger.debug("cart/copyCartToOrder", cartId);
 
-  // Set our new order's cartId to existing cart._id
-  // We'll get a new _id for our order
+  // Set our new order"s cartId to existing cart._id
+  // We"ll get a new _id for our order
   order.cartId = cart._id;
 
-  // This block assigns an existing user's email associated with their account to this order
+  // This block assigns an existing user"s email associated with their account to this order
   // We copied order from cart, so this userId and email are coming from the existing cart
   if (order.userId && !order.email) {
     // If we have a userId, but do _not_ have an email associated with this order
@@ -65,14 +64,14 @@ export function copyCartToOrder(cartId) {
         } else if (email.provides === "default") {
           order.email = email.address;
         }
-        // If we can't find any relevant email addresses for the user, we'll
+        // If we can"t find any relevant email addresses for the user, we"ll
         // let them assign an email address to this order after the checkout
       }
     }
   }
 
   // The schema will provide default values for these fields in our new order
-  // so we'll delete the values copied from the cart
+  // so we"ll delete the values copied from the cart
   delete order.createdAt; // autovalues from cart
   delete order.updatedAt;
   delete order.getCount;
@@ -95,7 +94,7 @@ export function copyCartToOrder(cartId) {
         shippingRecord.items.packed = false;
         shippingRecord.items.shipped = false;
         shippingRecord.items.delivered = false;
-        shippingRecord.workflow = { status: "new",  workflow: ["coreOrderWorkflow/notStarted"] };
+        shippingRecord.workflow = { status: "new", workflow: ["coreOrderWorkflow/notStarted"] };
         shippingRecords.push(shippingRecord);
       });
       order.shipping = shippingRecords;
@@ -128,11 +127,11 @@ export function copyCartToOrder(cartId) {
   if (!order.billing[0].currency) {
     order.billing[0].currency = {
       // userCurrency is shopCurrency unless user has selected a different currency than the shop
-      userCurrency: userCurrency
+      userCurrency
     };
   }
 
-  order.items = order.items.map(item => {
+  order.items = order.items.map((item) => {
     item.shippingMethod = order.shipping[order.shipping.length - 1];
     item.workflow = {
       status: "new",
@@ -144,7 +143,7 @@ export function copyCartToOrder(cartId) {
 
   // Assign items to each shipping record based on the shopId of the item
   _.each(order.items, (item) => {
-    const shippingRecord = order.shipping.find((sRecord) => sRecord.shopId === item.shopId);
+    const shippingRecord = order.shipping.find(sRecord => sRecord.shopId === item.shopId);
     // If the shipment exists
     if (shippingRecord.items) {
       shippingRecord.items.push({
@@ -178,7 +177,7 @@ export function copyCartToOrder(cartId) {
     });
     // create a new cart for the user
     // even though this should be caught by
-    // subscription handler, it's not always working
+    // subscription handler, it"s not always working
     const newCartExists = Collections.Cart.find({ userId: order.userId });
     if (newCartExists.count() === 0) {
       Meteor.call("cart/createCart", this.userId, sessionId);
@@ -199,8 +198,8 @@ export function copyCartToOrder(cartId) {
       }
     }
 
-    Logger.info("Transitioned cart " + cartId + " to order " + orderId);
-    // catch send notification, we don't want
+    Logger.info(`Transitioned cart ${  cartId  } to order ${  orderId}`);
+    // catch send notification, we don"t want
     // to block because of notification errors
 
     if (order.email) {
@@ -221,3 +220,4 @@ export function copyCartToOrder(cartId) {
 Meteor.methods({
   "cart/copyCartToOrder": copyCartToOrder
 });
+
