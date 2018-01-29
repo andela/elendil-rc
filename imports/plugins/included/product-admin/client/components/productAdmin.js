@@ -48,7 +48,7 @@ class ProductAdmin extends Component {
       product: props.product,
       viewProps: props.viewProps,
       categories: [],
-      nonDigitalProductArray: ["smartphones", "fashion", "Electronics", "Gift-items"],
+      physicalProductArray: ["smartphones", "fashion", "Electronics", "Gift-items"],
       digitalProductArray: ["Audio", "Video", "ebooks", "uncategorized"],
       selectedDigital: false,
       isUploading: false,
@@ -242,13 +242,13 @@ class ProductAdmin extends Component {
     // Product categories object
     const categories = {
       Digital: this.state.digitalProductArray,
-      NonDigital: this.state.nonDigitalProductArray
+      Physical: this.state.physicalProductArray
     };
     // filter and update products by product types
     if (event.target.value.toString() === "Digital") {
       filterTerm = "digital";
     } else {
-      filterTerm = "nonDigital";
+      filterTerm = "physical";
     }
     this.setState({
       isUploading: false,
@@ -373,7 +373,7 @@ class ProductAdmin extends Component {
             >
               <option>Select Product Type</option>
               <option>Digital</option>
-              <option>NonDigital</option>
+              <option>Physical</option>
             </select>
             <br />
             {this.renderProductCategoryFilter()}

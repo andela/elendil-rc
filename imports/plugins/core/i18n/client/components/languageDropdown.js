@@ -15,9 +15,9 @@ class LanguageDropDown extends Component {
 
   buttonElement() {
     return (
-      <Components.Button containerStyle={{ color: "#000" }}>
-        <i className="fa fa-language fa-lg"/>&nbsp;
-        <i className="fa fa-caret-down"/>
+      <Components.Button containerStyle={{ color: "#fff" }}>
+        <i className="fa fa-language fa-lg" />&nbsp;
+        <i className="fa fa-caret-down" />
       </Components.Button>
     );
   }
@@ -36,6 +36,7 @@ class LanguageDropDown extends Component {
           <div className="dropdown-toggle">
             <Components.DropDownMenu
               buttonElement={this.buttonElement()}
+              style={{ color: "#fff" }}
               value={this.props.currentLanguage || this.state.value}
               onChange={this.onChange}
               menuStyle={{ maxHeight: 500, overflow: "auto" }}

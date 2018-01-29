@@ -26,13 +26,13 @@ const CompletedShopOrders = ({ shopName, items, handleDisplayMedia, shippingMeth
         {/* This is the left side / main content */}
         <div className="order-details-info-box">
           <div className="store-detail-box">
-            <span className="order-details-store-title">{shopName} Non-Digital Items</span>
+            <span className="order-details-store-title">{shopName} Physical Items</span>
             <span className="order-details-shipping-name">{shippingName}</span>
           </div>
         </div>
         <div className="order-details-info-box-topless">
           {items.map(function (item) {
-            if (item.productType === "nonDigital") {
+            if (item.productType === "physical") {
               return <CompletedOrderItem item={item} key={item._id} handleDisplayMedia={handleDisplayMedia} />;
             }
           })}

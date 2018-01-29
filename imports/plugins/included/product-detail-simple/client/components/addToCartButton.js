@@ -22,7 +22,7 @@ class AddToCartButton extends Component {
               className="form-control input-md"
               id="add-to-cart-quantity"
               min="1"
-              name="addToCartQty" 
+              name="addToCartQty"
               onChange={this.handleCartQuantityChange}
               type="number"
               value={this.props.cartQuantity}
@@ -34,9 +34,6 @@ class AddToCartButton extends Component {
             >
               <Components.Translation defaultValue="Add to cart" i18nKey="productDetail.addToCart" />
             </button>
-          </div>
-          <div style={{ marginTop: "2%" }}>
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felendilrc%2F&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=751851811692314" width="100%" height="400" style={{ border:'none', overflow:'hidden'}} scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
           </div>
         </div>
       );

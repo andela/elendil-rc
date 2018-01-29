@@ -89,6 +89,7 @@ class NavBar extends Component {
       return (
         <div className="search">
           <Components.FlatButton
+            style={{ color: "white" }}
             icon="fa fa-search"
             kind="flat"
             onClick={this.handleOpenSearchModal}
@@ -160,12 +161,12 @@ class NavBar extends Component {
         {this.renderBrand()}
         {this.renderTagNav()}
         {this.renderSearchButton()}
+        {this.renderTourButton()}
         {this.renderNotificationIcon()}
         {this.renderLanguage()}
         {this.renderCurrency()}
         {this.renderMainDropdown()}
         {this.renderCartContainerAndPanel()}
-        {this.renderTourButton()}
       </div>
     );
   }

@@ -10,7 +10,9 @@ import {
   AddToCartButton,
   ProductNotFound,
   ProductDetail,
-  ProductReview
+  ProductReview,
+  ProductRating,
+  SocialContent
 } from "./components";
 
 import {
@@ -42,3 +44,5 @@ registerComponent("AddToCartButton", AddToCartButton);
 registerComponent("Divider", Divider);
 registerComponent("ProductNotFound", ProductNotFound);
 registerComponent("ProductReview", ProductReview);
+registerComponent("ProductRating", ProductRating);
+registerComponent("SocialContent", SocialContent);

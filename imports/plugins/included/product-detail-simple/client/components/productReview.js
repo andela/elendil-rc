@@ -4,14 +4,15 @@ import PropTypes from "prop-types";
 import Review from "./review";
 import UpdateReview from "./updateReview";
 import { ReactionProduct } from "/lib/api";
-import { ProductReviews, Shops } from "/lib/collections";
+import { ProductReviews, Shops, ProductRatings } from "/lib/collections";
 import { Reaction } from "/client/api";
 import { Components, registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 
 class ProductReview extends Component {
   static propTypes = {
     productReviews: PropTypes.arrayOf(PropTypes.object),
-    query: PropTypes.object
+    query: PropTypes.object,
+    userRatingScore: PropTypes.array
   }
   constructor(props) {
     super(props);
@@ -140,12 +141,25 @@ class ProductReview extends Component {
     });
   }
 
+  getUserRating() {
+    if (this.props.userRatingScore.length) {
+      const { userRatingScore } = this.props;
+      return userRatingScore[0].rating;
+    }
+    return 0;
+  }
+
   renderReviews(index) {
     const review = this.props.productReviews[index];
+    const { query: { productId } } = this.props;
+    const { shopId } = this.getProductShopDetails();
+    let userRating = ProductRatings.find({ userId: review.userId, shopId, productId }).fetch();
+    userRating = userRating.length ? userRating[0].rating : 0;
     return (
       <Review
         key={review._id}
         id={review._id}
+        rating={userRating}
         index={index}
         content={review}
         delete={this.handleDelete}
