@@ -1,14 +1,15 @@
+import { getDateDifference } from "../helpers/getDateDifference";
 /**
+ * @param {number} totalSales
  * @param {date} fromDate
- * @param {date} todate
- * @description calculates date difference
- * @returns {number} DifferenceInday(s)
+ * @param {date} toDate
+ * @description Calculate average sales by day difference
+ * @returns {number} salesPerDay
  */
-export const getDateDifference = (fromDate, todate) => {
-  const oneDayInMilliseconds = 86400000;
-  const dateDifference = new Date(todate).setHours(23) - new Date(fromDate).setHours(0);
-  const dayDifference = Math.round(dateDifference / oneDayInMilliseconds);
-  return dayDifference;
+export const getAverageSales = (totalSales, fromDate, toDate) => {
+  const difference = getDateDifference(fromDate, toDate);
+  const salesPerDay = difference === 0 ? totalSales : totalSales / difference;
+  return salesPerDay;
 };
 
-export default getDateDifference;
+export default getAverageSales;
