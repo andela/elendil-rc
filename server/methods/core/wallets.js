@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
-import { Wallets, WalletHistories } from "/lib/collections";
+import { Wallets, WalletHistories, Orders } from "/lib/collections";
 import { Reaction } from "/server/api";
 
 /**
@@ -36,20 +36,64 @@ Meteor.methods({
    * @return {Void} - or Error object on failure
    */
   "wallet/insertTransaction": function (transaction) {
-    // check(userId, String);
-    // check(shopId, String);
     check(transaction, Object);
 
-    // if (checkUserPermissions()) {
-    //   throw new Meteor.Error(403, "Owners or Admins can't review");
-    // }
-
-    // if (Meteor.user().name) {
     WalletHistories.insert(transaction);
-    // } else {
-    // throw new Meteor.Error(401, "Please update account profile");
-    // }
   },
+
+  "wallet/cancelOrder": function (order) {
+    check(order, Object);
+
+    const { email } = order;
+
+    if (email) {
+      const amount = order.billing[0].invoice.total;
+
+      const wallet = Wallets.findOne({ ownerEmail: email });
+
+      if (!wallet) {
+        Wallets.insert({ ownerEmail: email, balance: 0 });
+      }
+
+      Meteor.call("wallet/getUserWalletId", email, (getWalletIdError, walletId) => {
+        const transaction = {
+          walletId,
+          amount: Number(amount),
+          to: email,
+          from: "reaction@refund.com",
+          transactionType: "credit"
+        };
+
+        Meteor.call("wallet/updateBalance", transaction);
+        Meteor.call("wallet/insertTransaction", transaction);
+      });
+
+      // send notification to user
+      const prefix = Reaction.getShopPrefix();
+      const url = `${prefix}/notifications`;
+      const sms = true;
+      Meteor.call("notification/send", order.userId, "orderCanceled", url, sms, (err) => {
+        // if (err) Logger.error(err);
+      });
+
+      Orders.update({
+        "_id": order._id,
+        "billing.shopId": Reaction.getShopId
+      }, {
+        $set: {
+          "workflow.status": "coreOrderWorkflow/canceled"
+        },
+        $push: {
+          "workflow.workflow": "coreOrderWorkflow/canceled"
+        }
+      });
+
+      return 1;
+    }
+    return 2;
+    // set the new status to cancelled;
+  },
+
   /**
    * @name wallet/updateBalance
    * @method
