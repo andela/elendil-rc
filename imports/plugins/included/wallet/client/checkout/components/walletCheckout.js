@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Components } from "@reactioncommerce/reaction-components";
 
 import roundToTwo from "../../helpers/roundToTwo";
 
@@ -26,12 +27,14 @@ class WalletCheckout extends Component {
     const { showBody } = this.state;
     return (
       <div className="panel panel-default wallet-checkout">
-        <button
-          className={`btn add-cart panel-heading wallet-checkout__toggle ${showBody ? "isOpen" : ""}`}
+        <Components.Button
+          status="secondary"
+          buttonType="submit"
           onClick={this.toggleBody}
-        >
-          <span id="btn-complete-order">Pay with wallet</span>
-        </button>
+          bezelStyle="solid"
+          style={{ fontSize: "18px", color: "white", backgroundColor: "orange" }}
+          label={"Pay with wallet"}
+        />
         {
           showBody &&
           <div className="panel-body">

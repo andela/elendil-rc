@@ -5,6 +5,7 @@ import CompletedShopOrders from "./completedShopOrders";
 import CompletedOrderPaymentMethod from "./completedOrderPaymentMethods";
 import CompletedOrderSummary from "./completedOrderSummary";
 import AddEmail from "./addEmail";
+import CancelOrderButton from "./cancelOrderButton";
 
 /**
  * @summary Displays a summary/information about the order the user has just completed
@@ -18,7 +19,8 @@ import AddEmail from "./addEmail";
  * @property {Booleam} isProfilePage - A boolean value that checks if current page is user profile page
  * @return {Node} React node containing the top-level component for displaying the completed order/receipt page
  */
-const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, handleDisplayMedia, isProfilePage }) => {
+const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, handleDisplayMedia, onCancelOrderClick, isProfilePage }) => {
+  const orderStatus = order.workflow.status;
   if (!order) {
     return (
       <Components.NotFound
@@ -48,7 +50,18 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 
   return (
     <div className="container order-completed">
-      { headerText }
+      <div style={{ display: "flex", width: "100%" }}>
+        {headerText}
+        {(orderStatus === "new" || orderStatus === "coreOrderWorkflow/canceled") &&
+          <div style={{ marginLeft: "auto" }}>
+            <CancelOrderButton
+              order={order}
+              orderStatus={orderStatus}
+              onCancelOrderClick={onCancelOrderClick}
+            />
+          </div>
+        }
+      </div>
       <div className="order-details-main">
         <div className="order-details-content-title">
           <p><Components.Translation defaultValue="Your Items" i18nKey={"cartCompleted.yourItems"} /></p>
@@ -81,8 +94,8 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
                 return <div className="order-details-info-box" key={shipment._id}>
                   <div className="order-details-info-box-content">
                     <p>
-                      {shipment.address.fullName}<br/>
-                      {shipment.address.address1}<br/>
+                      {shipment.address.fullName}<br />
+                      {shipment.address.address1}<br />
                       {shipment.address.city}, {shipment.address.region} {shipment.address.postal} {shipment.address.country}
                     </p>
                   </div>
@@ -109,6 +122,7 @@ const CompletedOrder = ({ order, orderId, shops, orderSummary, paymentMethods, h
 };
 
 CompletedOrder.propTypes = {
+  cancelOrder: PropTypes.func,
   handleDisplayMedia: PropTypes.func,
   isProfilePage: PropTypes.bool,
   order: PropTypes.object,
