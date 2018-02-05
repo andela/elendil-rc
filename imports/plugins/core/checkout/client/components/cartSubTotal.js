@@ -43,6 +43,7 @@ class CartSubTotal extends Component {
     }
   }
   render() {
+   const digital = localStorage.getItem('digital')
     return (
       <div className="cart-items">
         <div className="cart-totals">
@@ -54,6 +55,14 @@ class CartSubTotal extends Component {
               <tr>
                 <td><Components.Translation defaultValue="Items in cart" i18nKey="cartSubTotals.items" /></td>
                 <td>{this.props.cartCount}</td>
+              </tr>
+              <tr>
+                <td><Components.Translation defaultValue="Physical goods" /></td>
+                <td>{this.props.cartCount - digital}</td>
+              </tr>
+              <tr>
+                <td><Components.Translation defaultValue="Digital goods" /></td>
+                <td>{digital}</td>
               </tr>
               <tr>
                 <td><Components.Translation defaultValue="Sub total" i18nKey="cartSubTotals.subtotal" /></td>
