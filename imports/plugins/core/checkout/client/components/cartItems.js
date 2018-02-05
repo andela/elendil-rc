@@ -28,7 +28,13 @@ class CartItems extends Component {
       handleRemoveItem,
       item
     } = this.props;
-    console.log(this.props, 'props');
+    let digital = 0;
+    
+    if (item.title === 'digital') {
+      digital = digital + item.quantity;
+    }
+    localStorage.setItem('digital', digital);
+   
     return (
       <div
         className="cart-items"
